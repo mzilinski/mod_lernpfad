@@ -31,6 +31,8 @@ require_once($CFG->libdir . '/completionlib.php');
  * @package    mod_lernpfad
  * @copyright  2026 Malte Zilinski
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @covers     \mod_lernpfad\local\graph
+ * @covers     \mod_lernpfad\local\map
  */
 #[\PHPUnit\Framework\Attributes\CoversClass(\mod_lernpfad\local\graph::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\mod_lernpfad\local\map::class)]
