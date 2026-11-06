@@ -19,6 +19,8 @@ namespace mod_lernpfad;
 use mod_lernpfad\local\layout;
 use mod_lernpfad\local\map;
 
+#[\PHPUnit\Framework\Attributes\CoversClass(\mod_lernpfad\local\layout::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\mod_lernpfad\local\map::class)]
 /**
  * Tests for the layered layout and the label heuristics.
  *
@@ -28,8 +30,6 @@ use mod_lernpfad\local\map;
  * @covers     \mod_lernpfad\local\layout
  * @covers     \mod_lernpfad\local\map
  */
-#[\PHPUnit\Framework\Attributes\CoversClass(\mod_lernpfad\local\layout::class)]
-#[\PHPUnit\Framework\Attributes\CoversClass(\mod_lernpfad\local\map::class)]
 final class layout_test extends \advanced_testcase {
     public function test_diamond_and_chain(): void {
         // A -> B, A -> C, B -> D, C -> D, D -> E.

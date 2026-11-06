@@ -25,6 +25,8 @@ global $CFG;
 require_once($CFG->dirroot . '/mod/lernpfad/lib.php');
 require_once($CFG->libdir . '/completionlib.php');
 
+#[\PHPUnit\Framework\Attributes\CoversClass(\mod_lernpfad\local\graph::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\mod_lernpfad\local\map::class)]
 /**
  * Tests for the graph built from a course.
  *
@@ -34,8 +36,6 @@ require_once($CFG->libdir . '/completionlib.php');
  * @covers     \mod_lernpfad\local\graph
  * @covers     \mod_lernpfad\local\map
  */
-#[\PHPUnit\Framework\Attributes\CoversClass(\mod_lernpfad\local\graph::class)]
-#[\PHPUnit\Framework\Attributes\CoversClass(\mod_lernpfad\local\map::class)]
 final class graph_test extends \advanced_testcase {
     /**
      * Course with completion, three pages in section 1 and a learning path.
