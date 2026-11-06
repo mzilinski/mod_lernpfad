@@ -1,0 +1,96 @@
+name: Moodle Plugin CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - moodle-branch: MOODLE_405_STABLE
+            php: '8.3'
+            database: mariadb
+          - moodle-branch: MOODLE_500_STABLE
+            php: '8.3'
+            database: mariadb
+          - moodle-branch: MOODLE_501_STABLE
+            php: '8.3'
+            database: mariadb
+          - moodle-branch: MOODLE_502_STABLE
+            php: '8.3'
+            database: mariadb
+          - moodle-branch: MOODLE_503_STABLE
+            php: '8.3'
+            database: mariadb
+
+    services:
+      mariadb:
+        image: mariadb:11.4   # Moodle 5.3 requires MariaDB >= 11.4
+        env:
+          MYSQL_USER: root
+          MYSQL_ALLOW_EMPTY_PASSWORD: true
+          MYSQL_CHARACTER_SET_SERVER: utf8mb4
+          MYSQL_COLLATION_SERVER: utf8mb4_unicode_ci
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mariadb-admin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    steps:
+      - name: Check out plugin
+        uses: actions/checkout@v4
+        with:
+          path: plugin
+
+      - name: Install en_AU.UTF-8 locale
+        run: |
+          sudo locale-gen en_AU.UTF-8
+          sudo update-locale LANG=en_AU.UTF-8
+
+      - name: Setup PHP ${{ matrix.php }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: mbstring, pgsql, mysqli, gd, zip, intl, soap, xmlrpc, sodium
+          ini-values: max_input_vars=5000
+          coverage: none
+
+      - name: Initialise moodle-plugin-ci
+        run: |
+          composer create-project -n --no-dev --prefer-dist moodlehq/moodle-plugin-ci ci ^4
+          echo $(cd ci/bin; pwd) >> $GITHUB_PATH
+          echo $(cd ci/vendor/bin; pwd) >> $GITHUB_PATH
+
+      - name: Install Moodle ${{ matrix.moodle-branch }}
+        run: moodle-plugin-ci install --plugin ./plugin --db-host=127.0.0.1
+        env:
+          DB: ${{ matrix.database }}
+          MOODLE_BRANCH: ${{ matrix.moodle-branch }}
+
+      - name: PHP Lint
+        if: ${{ always() }}
+        run: moodle-plugin-ci phplint
+
+      - name: Moodle Code Checker
+        if: ${{ always() }}
+        run: moodle-plugin-ci phpcs --max-warnings 0
+
+      - name: Validate
+        if: ${{ always() }}
+        run: moodle-plugin-ci validate
+
+      - name: PHPUnit
+        if: ${{ always() }}
+        run: moodle-plugin-ci phpunit

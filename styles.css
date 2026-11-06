@@ -1,0 +1,136 @@
+.lernpfad {
+    --lp-accent: var(--bs-primary, #0f6cbf);
+    --lp-done: var(--bs-success, #357a32);
+    --lp-line: var(--bs-border-color, #dee2e6);
+    --lp-muted: var(--bs-secondary-color, #6a737b);
+    --lp-text: var(--bs-body-color, #1d2125);
+    --lp-bg: var(--bs-body-bg, #fff);
+    margin: .25rem 0 .5rem;
+}
+.lernpfad .lernpfad-svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+    overflow: visible;
+}
+.lernpfad .lp-edge {
+    fill: none;
+    stroke: var(--lp-line);
+    stroke-width: 6;
+    stroke-linecap: round;
+}
+.lernpfad .lp-edge-done {
+    stroke: var(--lp-done);
+    stroke-opacity: .55;
+}
+.lernpfad .lp-edge-locked {
+    stroke-dasharray: 2 9;
+}
+.lernpfad .lp-station {
+    fill: var(--lp-bg);
+    stroke: var(--lp-accent);
+    stroke-width: 4;
+}
+.lernpfad .lp-done {
+    fill: var(--lp-done);
+    stroke: var(--lp-done);
+}
+.lernpfad .lp-next {
+    fill: var(--lp-accent);
+}
+.lernpfad .lp-partial {
+    stroke: var(--lp-line);
+}
+.lernpfad .lp-progress,
+.lernpfad .lp-progress-track {
+    fill: none;
+    stroke: var(--lp-done);
+    stroke-width: 3;
+    stroke-linecap: round;
+}
+.lernpfad .lp-progress-track {
+    stroke: var(--lp-line);
+}
+.lernpfad .lp-locked {
+    fill: var(--lp-line);
+    stroke: var(--lp-line);
+}
+.lernpfad .lp-neutral {
+    stroke: var(--lp-muted);
+    stroke-width: 3;
+}
+.lernpfad .lp-check {
+    fill: none;
+    stroke: #fff;
+    stroke-width: 2.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+.lernpfad .lp-lock {
+    fill: var(--lp-muted);
+}
+.lernpfad .lp-lock-bow {
+    fill: none;
+    stroke: var(--lp-muted);
+    stroke-width: 1.6;
+}
+.lernpfad .lp-pulse {
+    fill: none;
+    stroke: var(--lp-accent);
+    stroke-width: 2;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: lp-pulse 1.8s ease-out infinite;
+}
+@keyframes lp-pulse {
+    from { opacity: .7; transform: scale(.75); }
+    to { opacity: 0; transform: scale(1.35); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .lernpfad .lp-pulse { animation: none; opacity: .5; }
+}
+.lernpfad .lp-label {
+    fill: var(--lp-text);
+    font-size: 13px;
+    font-family: inherit;
+}
+.lernpfad .lp-label .lp-code {
+    fill: var(--lp-accent);
+    font-weight: 700;
+}
+.lernpfad .lp-label-locked,
+.lernpfad .lp-label-locked .lp-code {
+    fill: var(--lp-muted);
+}
+.lernpfad a.lp-node:hover .lp-station,
+.lernpfad a.lp-node:focus .lp-station {
+    stroke-width: 6;
+}
+.lernpfad a.lp-node:hover .lp-label,
+.lernpfad a.lp-node:focus .lp-label {
+    text-decoration: underline;
+}
+.lernpfad a.lp-node:focus-visible {
+    outline: 2px solid var(--lp-accent);
+    outline-offset: 3px;
+}
+.lernpfad .lp-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .25rem 1rem;
+    margin-top: .25rem;
+}
+.lernpfad .lp-legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: .3rem;
+}
+.lernpfad .lp-legend-dot {
+    display: inline-block;
+    width: 1.1em;
+    height: 1.1em;
+}
+.lernpfad .lp-legend-dot .lp-station {
+    stroke-width: 3;
+}
