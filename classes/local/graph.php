@@ -317,8 +317,12 @@ class graph {
         global $DB;
         if ($this->gradeitems === null) {
             $this->gradeitems = [];
-            $items = $DB->get_records('grade_items',
-                ['courseid' => $this->modinfo->get_course_id(), 'itemtype' => 'mod'], '', 'id, itemmodule, iteminstance');
+            $items = $DB->get_records(
+                'grade_items',
+                ['courseid' => $this->modinfo->get_course_id(), 'itemtype' => 'mod'],
+                '',
+                'id, itemmodule, iteminstance'
+            );
             foreach ($items as $item) {
                 $cms = $this->modinfo->get_instances_of($item->itemmodule);
                 if (isset($cms[$item->iteminstance])) {

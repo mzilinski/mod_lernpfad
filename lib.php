@@ -22,8 +22,6 @@
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
 /** Karte zeigt die Aktivitäten des eigenen Abschnitts (oder Unterabschnitts). */
 define('LERNPFAD_SCOPE_SECTION', 0);
 /** Karte zeigt die Abschnitte des ganzen Kurses. */
@@ -102,8 +100,11 @@ function lernpfad_delete_instance($id) {
  */
 function lernpfad_get_coursemodule_info($coursemodule) {
     global $DB;
-    $rec = $DB->get_record('lernpfad', ['id' => $coursemodule->instance],
-        'id, name, intro, introformat, scope, orientation');
+    $rec = $DB->get_record(
+        'lernpfad',
+        ['id' => $coursemodule->instance],
+        'id, name, intro, introformat, scope, orientation'
+    );
     if (!$rec) {
         return false;
     }

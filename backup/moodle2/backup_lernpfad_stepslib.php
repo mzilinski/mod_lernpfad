@@ -32,8 +32,11 @@ class backup_lernpfad_activity_structure_step extends backup_activity_structure_
      * @return backup_nested_element
      */
     protected function define_structure() {
-        $lernpfad = new backup_nested_element('lernpfad', ['id'],
-            ['name', 'intro', 'introformat', 'scope', 'orientation', 'timemodified']);
+        $lernpfad = new backup_nested_element(
+            'lernpfad',
+            ['id'],
+            ['name', 'intro', 'introformat', 'scope', 'orientation', 'timemodified']
+        );
         $lernpfad->set_source_table('lernpfad', ['id' => backup::VAR_ACTIVITYID]);
         $lernpfad->annotate_files('mod_lernpfad', 'intro', null);
         return $this->prepare_activity_structure($lernpfad);

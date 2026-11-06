@@ -62,7 +62,7 @@ class layout {
         }
         ksort($layers);
         $pos = [];
-        $assign = function() use (&$layers, &$pos) {
+        $assign = function () use (&$layers, &$pos) {
             foreach ($layers as $layer) {
                 $n = count($layer);
                 foreach (array_values($layer) as $i => $id) {
@@ -119,7 +119,7 @@ class layout {
         }
         $state = array_fill_keys($ids, 0);
         $keep = [];
-        $visit = function($n) use (&$visit, &$adj, &$state, &$keep) {
+        $visit = function ($n) use (&$visit, &$adj, &$state, &$keep) {
             $state[$n] = 1;
             foreach ($adj[$n] as $m) {
                 if ($state[$m] == 1) {

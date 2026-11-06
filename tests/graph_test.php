@@ -33,6 +33,7 @@ require_once($CFG->libdir . '/completionlib.php');
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 #[\PHPUnit\Framework\Attributes\CoversClass(\mod_lernpfad\local\graph::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\mod_lernpfad\local\map::class)]
 final class graph_test extends \advanced_testcase {
     /**
      * Course with completion, three pages in section 1 and a learning path.

@@ -31,8 +31,10 @@ use mod_lernpfad\local\map;
 final class layout_test extends \advanced_testcase {
     public function test_diamond_and_chain(): void {
         // A -> B, A -> C, B -> D, C -> D, D -> E.
-        $g = layout::compute(['a', 'b', 'c', 'd', 'e'],
-            [['a', 'b'], ['a', 'c'], ['b', 'd'], ['c', 'd'], ['d', 'e']]);
+        $g = layout::compute(
+            ['a', 'b', 'c', 'd', 'e'],
+            [['a', 'b'], ['a', 'c'], ['b', 'd'], ['c', 'd'], ['d', 'e']]
+        );
         $this->assertSame([0, 1, 1, 2, 3], array_column($g, 'rank'));
         $this->assertEquals(-0.5, $g['b']['lane']);
         $this->assertEquals(0.5, $g['c']['lane']);
@@ -41,8 +43,10 @@ final class layout_test extends \advanced_testcase {
 
     public function test_chain_stays_on_branch_lane(): void {
         // Fork after b: c and x; c -> d -> e is a chain and keeps c's lane.
-        $g = layout::compute(['a', 'b', 'c', 'x', 'd', 'e'],
-            [['a', 'b'], ['b', 'c'], ['b', 'x'], ['c', 'd'], ['d', 'e']]);
+        $g = layout::compute(
+            ['a', 'b', 'c', 'x', 'd', 'e'],
+            [['a', 'b'], ['b', 'c'], ['b', 'x'], ['c', 'd'], ['d', 'e']]
+        );
         $this->assertEquals($g['c']['lane'], $g['d']['lane']);
         $this->assertEquals($g['c']['lane'], $g['e']['lane']);
     }

@@ -77,8 +77,10 @@ class map {
         $ranks = max(array_column($grid, 'rank')) + 1;
         $horizontal = $orient == LERNPFAD_ORIENT_HORIZONTAL
             || ($orient == LERNPFAD_ORIENT_AUTO && $ranks <= self::MAXRANKS_H);
-        $labels = self::labels(array_column($graph->nodes, 'name', 'id'),
-            $horizontal ? self::COLW - 14 : self::LANEW - self::R * 2 - 30);
+        $labels = self::labels(
+            array_column($graph->nodes, 'name', 'id'),
+            $horizontal ? self::COLW - 14 : self::LANEW - self::R * 2 - 30
+        );
         $states = self::states($graph);
 
         $lanes = array_column($grid, 'lane');
@@ -135,7 +137,7 @@ class map {
         }
         // A predecessor counts as passed when it is done, or untracked and its own
         // predecessors are passed (walk back through pages/files without completion).
-        $passed = function(string $id, array $seen = []) use (&$passed, $graph, $preds): bool {
+        $passed = function (string $id, array $seen = []) use (&$passed, $graph, $preds): bool {
             $n = $graph->nodes[$id];
             if ($n['tracked']) {
                 return $n['done'];
@@ -291,9 +293,11 @@ class map {
         foreach ($names as $id => $n) {
             $code = '';
             $title = $n;
-            if (preg_match('/^(\S{1,12})\s+[·•|–—-]\s+(.+)$/u', $n, $m)
+            if (
+                preg_match('/^(\S{1,12})\s+[·•|–—-]\s+(.+)$/u', $n, $m)
                     || preg_match('/^([^:]{1,16}):\s*(.+)$/u', $n, $m)
-                    || preg_match('/^([A-ZÄÖÜ][A-ZÄÖÜ0-9]{0,5})\s+(.+)$/u', $n, $m)) {
+                    || preg_match('/^([A-ZÄÖÜ][A-ZÄÖÜ0-9]{0,5})\s+(.+)$/u', $n, $m)
+            ) {
                 [$code, $title] = [$m[1], $m[2]];
             }
             $out[$id] = [$code, self::wrap($title, 3, $width)];

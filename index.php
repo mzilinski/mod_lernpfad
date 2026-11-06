@@ -44,10 +44,15 @@ $table = new html_table();
 $table->head = [get_string('name')];
 foreach (get_fast_modinfo($course)->get_instances_of('lernpfad') as $cm) {
     if ($cm->uservisible) {
-        $table->data[] = [html_writer::link(new moodle_url('/mod/lernpfad/view.php', ['id' => $cm->id]),
-            $cm->get_formatted_name())];
+        $table->data[] = [html_writer::link(
+            new moodle_url('/mod/lernpfad/view.php', ['id' => $cm->id]),
+            $cm->get_formatted_name()
+        )];
     }
 }
-echo $table->data ? html_writer::table($table) : $OUTPUT->notification(get_string('thereareno', 'moodle',
-    get_string('modulenameplural', 'lernpfad')), 'info');
+echo $table->data ? html_writer::table($table) : $OUTPUT->notification(get_string(
+    'thereareno',
+    'moodle',
+    get_string('modulenameplural', 'lernpfad')
+), 'info');
 echo $OUTPUT->footer();
